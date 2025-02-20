@@ -25,9 +25,6 @@ const osThreadAttr_t app_main_attr = {
   .stack_size = sizeof(app_main_stk)
 };
 
-//extern GLCD_FONT GLCD_Font_6x8;
-//extern GLCD_FONT GLCD_Font_16x24;
-
 extern uint16_t AD_in          (uint32_t ch);
 extern uint8_t  get_button     (void);
 extern void     netDHCP_Notify (uint32_t if_num, uint8_t option, const uint8_t *val, uint32_t len);
@@ -99,13 +96,13 @@ static __NO_RETURN void Display (void *arg) {
     flagLCD = osThreadFlagsWait (0x50, osFlagsWaitAll, osWaitForever);
     if(flagLCD == 0x50){
       /* Display user text lines */
-      escrituraLCD(1, lcd_text[0]);
-      escrituraLCD(2, lcd_text[1]);
+      escrituraLCD_V2(1, lcd_text[0]);
+      escrituraLCD_V2(2, lcd_text[1]);
     }
     osDelay(100);
     LCD_Update ();
-    limpiar_L1 ();
-    limpiar_L2 ();
+//    limpiar_L1 ();
+//    limpiar_L2 ();
   }
 }
 
