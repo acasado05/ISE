@@ -5,21 +5,21 @@
   int sprintf(char *str, const char *format)
   
   str: puntero a una matriz de elementos char conde se almacena la cadena C resultante
-  format: cadena que contien el texto que se escribirá en el buffer
+  format: cadena que contien el texto que se escribirÃ¡ en el buffer
 Esta ultima, puede contener etiquetas de formato
 
 ETIQUETAS:
 
-- %c: Utilizada para formatear un carácter.
+- %c: Utilizada para formatear un carÃ¡cter.
 - %s: Utilizada para formatear una cadena de caracteres (string).
-- %d o %i: Utilizada para formatear un número entero con signo.
-- %u: Utilizada para formatear un número entero sin signo.
-- %x o %X: Utilizada para formatear un número entero en hexadecimal.
-- %o: Utilizada para formatear un número entero en octal.
-- %f: Utilizada para formatear un número en punto flotante (decimal).
-- %e o %E: Utilizada para formatear un número en notación científica.
+- %d o %i: Utilizada para formatear un nÃºmero entero con signo.
+- %u: Utilizada para formatear un nÃºmero entero sin signo.
+- %x o %X: Utilizada para formatear un nÃºmero entero en hexadecimal.
+- %o: Utilizada para formatear un nÃºmero entero en octal.
+- %f: Utilizada para formatear un nÃºmero en punto flotante (decimal).
+- %e o %E: Utilizada para formatear un nÃºmero en notaciÃ³n cientÃ­fica.
 - %p: Utilizada para formatear un puntero.
-- %%: Utilizada para imprimir el carácter '%' literalmente.
+- %%: Utilizada para imprimir el carÃ¡cter '%' literalmente.
 
 */
 
@@ -31,7 +31,7 @@ ARM_SPI_STATUS stat;
 TIM_HandleTypeDef tim7;
 
 /*Variables internas*/
-unsigned char buffer[512]; //Cada página tiene 128 columnas y hay 4 páginas: 128x4 = 512 columnas en total
+unsigned char buffer[512]; //Cada pÃ¡gina tiene 128 columnas y hay 4 pÃ¡ginas: 128x4 = 512 columnas en total
 uint8_t positionL1;
 uint8_t positionL2;
 uint8_t centrado1 = 30;
@@ -93,7 +93,7 @@ void SPI_Callback (uint32_t event)
     }
 }
 
-//Función que genera el retraso del reset.
+//FunciÃ³n que genera el retraso del reset.
 void delay (uint32_t n_microsegundos){
   
   __HAL_RCC_TIM7_CLK_ENABLE();
@@ -111,12 +111,12 @@ void delay (uint32_t n_microsegundos){
   HAL_TIM_Base_DeInit(&tim7);
 }
 
-//Función que inicializa pines de salida GPIO: RESET (PA6), A0 (PF13) y CS (PD14).
+//FunciÃ³n que inicializa pines de salida GPIO: RESET (PA6), A0 (PF13) y CS (PD14).
 void Init_PinesGPIO (void){
   
   GPIO_InitTypeDef GPIO_InitStruct;
   
-  //Inicialización RESET: PA6
+  //InicializaciÃ³n RESET: PA6
   __HAL_RCC_GPIOA_CLK_ENABLE();
   
   GPIO_InitStruct.Pin = GPIO_PIN_6; //PA6
@@ -128,7 +128,7 @@ void Init_PinesGPIO (void){
   
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
   
-  //Inicialización A0: PF13
+  //InicializaciÃ³n A0: PF13
   __HAL_RCC_GPIOF_CLK_ENABLE();
   
   GPIO_InitStruct.Pin = GPIO_PIN_13; //PF13
@@ -140,7 +140,7 @@ void Init_PinesGPIO (void){
   
   HAL_GPIO_WritePin(GPIOF, GPIO_PIN_13, GPIO_PIN_SET);
   
-    //Inicialización CS: PD14
+    //InicializaciÃ³n CS: PD14
   __HAL_RCC_GPIOD_CLK_ENABLE();
   
   GPIO_InitStruct.Pin = GPIO_PIN_14; //PD14
@@ -153,7 +153,7 @@ void Init_PinesGPIO (void){
   HAL_GPIO_WritePin(GPIOD, GPIO_PIN_14, GPIO_PIN_SET);
 }
 
-//Función que inicialzia al bus SPI
+//FunciÃ³n que inicialzia al bus SPI
 void LCD_Reset (void){
   /* Initialize the SPI driver */
   SPIdrv->Initialize(SPI_Callback);
@@ -165,12 +165,12 @@ void LCD_Reset (void){
   
   delay(1); //Generar pulso a nivel bajo de 1 us
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET); 
-  delay(5); //Tiempo después del reset
+  delay(5); //Tiempo despuÃ©s del reset
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
   delay(1001); //Generar pulso a nivel alto de 1 ms
 }
 
-//Función que escribe un dato en el LCD
+//FunciÃ³n que escribe un dato en el LCD
 void LCD_wr_data (unsigned char data){
   
   HAL_GPIO_WritePin(GPIOD, GPIO_PIN_14, GPIO_PIN_RESET); //CS = 0
@@ -185,7 +185,7 @@ void LCD_wr_data (unsigned char data){
   HAL_GPIO_WritePin(GPIOD, GPIO_PIN_14, GPIO_PIN_SET);   //CS = 1
 }
 
-//Función que recibe un comando en el LCD
+//FunciÃ³n que recibe un comando en el LCD
 void LCD_wr_cmd (unsigned char cmd){
   
   HAL_GPIO_WritePin(GPIOD, GPIO_PIN_14, GPIO_PIN_RESET); //CS = 0
@@ -211,7 +211,7 @@ void LCD_Init (void){
   LCD_wr_cmd(0x40); //Display empieza en la l nea 0
   LCD_wr_cmd(0xAF); //Display ON
   LCD_wr_cmd(0x81); //Contraste
-  LCD_wr_cmd(0x17); //Valor Contraste -> Página 46 del Display Controller
+  LCD_wr_cmd(0x17); //Valor Contraste -> PÃ¡gina 46 del Display Controller
   LCD_wr_cmd(0xA4); //Display all points normal
   LCD_wr_cmd(0xA6); //LCD Display normal
 }
@@ -219,18 +219,18 @@ void LCD_Init (void){
 void LCD_Update (void) {
   
   int i; 
-  LCD_wr_cmd(0x00);      // 4 bits de la parte baja de la dirección a 0 
-  LCD_wr_cmd(0x10);      // 4 bits de la parte alta de la dirección a 0 
-  LCD_wr_cmd(0xB0);      // Página 0 
+  LCD_wr_cmd(0x00);      // 4 bits de la parte baja de la direcciÃ³n a 0 
+  LCD_wr_cmd(0x10);      // 4 bits de la parte alta de la direcciÃ³n a 0 
+  LCD_wr_cmd(0xB0);      // PÃ¡gina 0 
   
   for(i=0;i<128;i++){ 
     LCD_wr_data(buffer[i]); 
   } 
 
    
-  LCD_wr_cmd(0x00);      // 4 bits de la parte baja de la dirección a 0 
-  LCD_wr_cmd(0x10);      // 4 bits de la parte alta de la dirección a 0 
-  LCD_wr_cmd(0xB1);      // Página 1 
+  LCD_wr_cmd(0x00);      // 4 bits de la parte baja de la direcciÃ³n a 0 
+  LCD_wr_cmd(0x10);      // 4 bits de la parte alta de la direcciÃ³n a 0 
+  LCD_wr_cmd(0xB1);      // PÃ¡gina 1 
    
   for(i=128;i<256;i++){ 
     LCD_wr_data(buffer[i]); 
@@ -238,7 +238,7 @@ void LCD_Update (void) {
   
   LCD_wr_cmd(0x00);       
   LCD_wr_cmd(0x10);      
-  LCD_wr_cmd(0xB2);      //Página 2 
+  LCD_wr_cmd(0xB2);      //PÃ¡gina 2 
 
 
   for(i=256;i<384;i++){ 
@@ -315,7 +315,7 @@ void L1(void){
 
 void L2(void){
   sprintf(linea2,"Prueba valor2: %.5f", v2);
-  for(i=0; i<22; i++){ //Especificamos cuánto va a escribir
+  for(i=0; i<22; i++){ //Especificamos cuÃ¡nto va a escribir
     symbolToLocalBuffer(2, linea2[i]);
   }
 }
@@ -325,6 +325,30 @@ void write_lcd(char cadena[], int linea, int longitudCadena){
     symbolToLocalBuffer(linea,cadena[j]);
   }
   LCD_Update();
+}
+
+//FunciÃ³n optimizada ya que resetea la posicion
+void escrituraLCD_V2 (uint8_t linea, char *texto){
+  
+  switch(linea){
+    case 1:
+      limpiar_L1 ();
+      for(uint8_t j = 0; j < texto[j] != '\0'; j++){
+        if(positionL1 <= 127){
+          symbolToLocalBuffer_L1(texto[j]);
+        }
+      }
+    break;
+    
+    case 2:
+      limpiar_L2();
+      for(uint8_t i = 0; i < texto[i] != '\0';  i++){
+        if(positionL2 <= 127){
+          symbolToLocalBuffer_L2(texto[i]);
+        }
+      }
+    break;
+  }
 }
 
 void escrituraLCD (uint8_t linea, const char frase[20]){
@@ -367,7 +391,7 @@ void cleanBuffer (uint8_t line){
 
 void LCD_Clean(void)
 {
-  memset(buffer, 0 , 512u); //implica añadir la libreria: #include "string.h"
+  memset(buffer, 0 , 512u); //implica aÃ±adir la libreria: #include "string.h"
   //LCD_Update();
 }
 
