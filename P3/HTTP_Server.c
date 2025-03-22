@@ -139,7 +139,7 @@ void netDHCP_Notify (uint32_t if_num, uint8_t option, const uint8_t *val, uint32
  *---------------------------------------------------------------------------*/
 static __NO_RETURN void Display (void *arg) {
   
-  //Inicializaci贸n LCD
+  //Inicializaci髇 LCD
   LCD_Initialize ();
   uint32_t flagLCD = 0x00;
 
@@ -197,7 +197,7 @@ static __NO_RETURN void RealTimeClock (void *arg){
     memcpy(lcd_text[1], aShowDate, sizeof(aShowDate));
     lcd_text[1][sizeof(aShowDate)] = '\0';
     
-    //Env铆a al hilo del LCD para escribir
+    //Env韆 al hilo del LCD para escribir
     osThreadFlagsSet (TID_Display, 0x50);
     
   }
@@ -256,24 +256,24 @@ static __NO_RETURN void UserHandler (void *arg){
 __NO_RETURN void app_main (void *arg) {
   (void)arg;
 
-  //Inicializaci贸n LED
+  //Inicializaci髇 LED
   LED_Initialize();
   
-  //Inicializaci贸n Ethernet
+  //Inicializaci髇 Ethernet
   netInitialize ();
   
   //Inicializacion ADC
   ADC1_pins_F429ZI_config ();
   ADC_Init_Single_Conversion (&adchandle, ADC1);
   
-  //Inicializaci贸n Real Time Clock
+  //Inicializaci髇 Real Time Clock
   RTC_Init ();
   
   //Init Timers
   SetTimers ();
   
   //Init Botton User
-//  init_User(); //Lo inicializo en la funci贸n SleepMode
+//  init_User(); //Lo inicializo en la funci髇 SleepMode
   
   TID_Led     = osThreadNew (BlinkLed, NULL, NULL);
   TID_Display = osThreadNew (Display,  NULL, NULL);
@@ -301,7 +301,7 @@ static void SetTimers (void){
 /* Timers Function 1s for LEDs P2 */
 void Timer_Callback_1s (void){
 
-  //Lo enciendo en la configuraci贸n inicial y tras 3 minutos
+  //Lo enciendo en la configuraci髇 inicial y tras 3 minutos
   if(tim_1s < 10){
     HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_14);
     tim_1s += 1;
@@ -313,7 +313,7 @@ void Timer_Callback_1s (void){
 
 void Timer_Callback_6s (void){
   
-  osTimerStart(id_tim_1s, 200); //Pongo esto para la configuraci贸n inicial al conectar Vcc
+  osTimerStart(id_tim_1s, 200); //Pongo esto para la configuraci髇 inicial al conectar Vcc
   osTimerStart(id_tim_15s, 15000); //Realmente no entra a los 16, sino a los 21 (15+6)
   SNTP_Init ();
   osTimerStart(id_tim_3m, 180000);
