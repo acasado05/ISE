@@ -96,7 +96,7 @@ void netDHCP_Notify (uint32_t if_num, uint8_t option, const uint8_t *val, uint32
  *---------------------------------------------------------------------------*/
 static __NO_RETURN void Display (void *arg) {
   
-  //InicializaciÃ³n LCD
+  //Inicialización LCD
   LCD_Initialize ();
   uint32_t flagLCD = 0x00;
 
@@ -144,10 +144,10 @@ static __NO_RETURN void BlinkLed (void *arg) {
 __NO_RETURN void app_main (void *arg) {
   (void)arg;
 
-  //InicializaciÃ³n LED
+  //Inicialización LED
   LED_Initialize();
   
-  //InicializaciÃ³n Ethernet
+  //Inicialización Ethernet
   netInitialize ();
   
   //Inicializacion ADC
